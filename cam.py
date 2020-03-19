@@ -23,9 +23,10 @@ class Hook():
         self.hook.remove()
 
 def threshold_activations(activation):
-    #activation[activation<230] = 70
+    activation[activation<200] = 70
     return activation
         
+# Refrerence from https://github.com/utkuozbulak/pytorch-cnn-visualizations/blob/master/src/misc_functions.py
 def apply_colormap_on_image(org_im, activation, colormap_name='jet'):
     """
     Apply heatmap on image
@@ -50,7 +51,8 @@ def apply_colormap_on_image(org_im, activation, colormap_name='jet'):
     return heatmap_on_image
         
         
-def get_cam_images(model, last_conv_layer, images):
+def get_cam_images(model, last_conv_layer, images, corona_idx=2):
+    # corona_idx is the index of the class which corresponds to covid19
     # Add hook to get last conv layer's features
     hook = Hook(model._modules.get(last_conv_layer))
     model.eval()
@@ -72,7 +74,6 @@ def get_cam_images(model, last_conv_layer, images):
         cam_features /= cam_features.view(-1, w*h).max(1)[0].view(-1, 1, 1)
         return np.uint8(255 * cam_features.cpu().detach().numpy())
     
-    corona_idx = 2
     cam_activations = get_cam_activations(hook.output, weight_softmax, corona_idx)
     cam_activations = [util.img_as_ubyte(skimage.transform.resize(inp, images[0].shape[-2:])) for inp in cam_activations]
     hook.close()

@@ -163,3 +163,28 @@ class ToPILImage(object):
 
     def __call__(self, x):
         return(self.to_pil(x[0]))
+    
+    
+class COVID19_ChestXray_Merged_Dataset(Dataset):
+    def __init__(self, dataset_partition=None, train=True, transform=None):
+        if train:
+            self.datafile = os.path.join(dataset_partition, 'train.pkl')
+        else:
+            self.datafile = os.path.join(dataset_partition, 'test.pkl')
+        
+        self.data = pickle.load(open(self.datafile, 'rb'))
+        self.transform = transform
+        
+    def __len__(self):
+        return len(self.data)
+    
+    def __getitem__(self, idx):
+        item = self.data[idx]
+        filename = item['filename']
+        label = item['label']
+        img = Image.open(filename)
+        
+        if self.transform is not None:
+            img = self.transform(img)
+        
+        return img, torch.tensor(label).long()
