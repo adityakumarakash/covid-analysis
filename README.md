@@ -1,7 +1,9 @@
-#Simple Covid-19 Analysis
-In this repository the task of predicting covid-19 from chest xray images is tackled. We also try to get insights from the learned model to see if anything meaningful is learned for this kind of dataset.
+# Covid-19 Analysis
+In this analysis, we learn a deep convolutional model to predict covid-19 from chest xray images. Using the learned model we try to derive some insights and find out meaningful features learnt from chest-xrays.
 
-## chestxray-analysis
-In this I train a resnet18 model for the classification task of predicting covid-19 using the xrays from repositorty https://github.com/ieee8023/covid-chestxray-dataset: and normal xrays from kaggle chest xray pneumonia dataset.
-chestxray-analysis.ipynb is the relevant notebook.
-gen_dataset.ipynb is for generation of dataset partition files which are already present in dataset_partition.
+## Prediction task
+A resnet18 model is trained for the prediction task. The xrays of positive covid patients are taken from [covid-chestxray-dataset](https://github.com/ieee8023/covid-chestxray-dataset), and is placed in data/ folder. Xrays for healthy patients is taken from [kaggle dataset](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia) and also placed in data/ folder.\
+[gen_dataset.ipynb](https://github.com/adityakumarakash/covid-analysis/blob/master/gen_dataset.ipynb) creates the dataset partition files in dataset_partition folder.
+
+Detailed experiment is present in the following notebook :\
+[chestxray-analysis.ipynb](https://github.com/adityakumarakash/covid-analysis/blob/master/chestray-analysis.ipynb)
