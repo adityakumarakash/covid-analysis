@@ -22,12 +22,14 @@ class Hook():
     def close(self):
         self.hook.remove()
 
-def threshold_activations(activation):
+def threshold_activations(activation, threshold=False):
+    if not threshold:
+        return activation
     activation[activation<200] = 70
     return activation
         
 # Refrerence from https://github.com/utkuozbulak/pytorch-cnn-visualizations/blob/master/src/misc_functions.py
-def apply_colormap_on_image(org_im, activation, colormap_name='jet'):
+def apply_colormap_on_image(org_im, activation, colormap_name='jet', threshold=False):
     """
     Apply heatmap on image
     Args:
@@ -37,7 +39,7 @@ def apply_colormap_on_image(org_im, activation, colormap_name='jet'):
     """
     # Get colormap
     color_map = mpl_color_map.get_cmap(colormap_name)
-    no_trans_heatmap = color_map(threshold_activations(activation))
+    no_trans_heatmap = color_map(threshold_activations(activation, threshold))
     
     # Change alpha channel in colormap to make sure original image is displayed
     heatmap = copy.copy(no_trans_heatmap)
