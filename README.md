@@ -3,7 +3,14 @@ In this analysis, we learn a deep convolutional model to predict covid-19 from c
 
 ## Prediction task
 A resnet18 model is trained for the prediction task. The xrays of positive covid patients are taken from [covid-chestxray-dataset](https://github.com/ieee8023/covid-chestxray-dataset), and is placed in data/ folder. Xrays for healthy patients is taken from [kaggle dataset](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia) and also placed in data/ folder.\
-[gen_dataset.ipynb](https://github.com/adityakumarakash/covid-analysis/blob/master/gen_dataset.ipynb) creates the dataset partition files in dataset_partition folder.
+[gen_dataset.ipynb](https://github.com/adityakumarakash/covid-analysis/blob/master/gen_dataset.ipynb) creates the dataset partition files in dataset_partition folder. On the current split resnet18 gets ~93% test accuracy.
 
-Detailed experiment is present in the following notebook :\
-[chestxray-analysis.ipynb](https://github.com/adityakumarakash/covid-analysis/blob/master/chestray-analysis.ipynb)
+*Detailed experiment is present in the following notebook* :\
+[chestxray-analysis.ipynb](https://github.com/adityakumarakash/covid-analysis/blob/master/chestray-analysis.ipynb)\
+Takes few seconds to load due to images. Grad-CAM maps are included for visualization.
+
+## Setting up the project
+### Data
+* Create data/ folder
+* Download the [covid-chestxray-dataset](https://github.com/ieee8023/covid-chestxray-dataset) and [kaggle dataset](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia) in data/
+* Use [gen_dataset.ipynb](https://github.com/adityakumarakash/covid-analysis/blob/master/gen_dataset.ipynb) to generate new partition or use the existing partition provided here.
