@@ -22,7 +22,7 @@ import torchvision.transforms.functional as TF
 import skimage.transform
 import warnings
 import tarfile
-
+import pdb
 default_pathologies = [  'Atelectasis',
                  'Consolidation',
                  'Infiltration',
@@ -166,12 +166,17 @@ class ToPILImage(object):
     
     
 class COVID19_ChestXray_Merged_Dataset(Dataset):
-    def __init__(self, dataset_partition=None, train=True, transform=None):
+    def __init__(self, dataset_partition=None, train=True, transform=None, multilabel=False):
+        filename = ''
         if train:
-            self.datafile = os.path.join(dataset_partition, 'train.pkl')
+            filename = 'train'
         else:
-            self.datafile = os.path.join(dataset_partition, 'test.pkl')
-        
+            filename = 'test'
+        if multilabel:
+            filename += '_multilabel'
+        filename += '.pkl'
+        self.multilabel = multilabel
+        self.datafile = os.path.join(dataset_partition, filename)
         self.data = pickle.load(open(self.datafile, 'rb'))
         self.transform = transform
         
@@ -182,9 +187,15 @@ class COVID19_ChestXray_Merged_Dataset(Dataset):
         item = self.data[idx]
         filename = item['filename']
         label = item['label']
+        if self.multilabel:
+            label = list(label.values())
         img = Image.open(filename)
         
         if self.transform is not None:
             img = self.transform(img)
-        
-        return img, torch.tensor(label).long()
+        #pdb.set_trace()
+        return img, torch.tensor(label).float()
+    
+    def get_keys(self):
+        if self.multilabel:
+            return list(self.data[0]['label'].keys())
