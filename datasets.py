@@ -166,7 +166,7 @@ class ToPILImage(object):
     
     
 class COVID19_ChestXray_Merged_Dataset(Dataset):
-    def __init__(self, dataset_partition=None, train=True, transform=None, multilabel=False):
+    def __init__(self, dataset_partition=None, train=True, transform=None, multilabel=False, full=False):
         filename = ''
         if train:
             filename = 'train'
@@ -174,6 +174,8 @@ class COVID19_ChestXray_Merged_Dataset(Dataset):
             filename = 'test'
         if multilabel:
             filename += '_multilabel'
+        if full:
+            filename += '_full'
         filename += '.pkl'
         self.multilabel = multilabel
         self.datafile = os.path.join(dataset_partition, filename)
