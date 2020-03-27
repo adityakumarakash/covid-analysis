@@ -9,6 +9,13 @@ A resnet18 model is trained for the prediction task. The xrays of positive covid
 [chestxray-analysis.ipynb](https://github.com/adityakumarakash/covid-analysis/blob/master/chestray-analysis.ipynb)\
 Takes few seconds to load due to images. Grad-CAM maps are included for visualization.
 
+## MultiLabel Prediction task
+A resnet18 model is trained for the multilabel prediction task. The data consists of covid-19, viral, bacterial and normal chest xrays. The viral and bacterial chest x-rays are taken from the kaggle dataset mentioned in the previous experiments.
+
+*Detailed experiment is present in the following notebook* :\
+[chestray-multilabel-analysis.ipynb](https://github.com/adityakumarakash/covid-analysis/blob/master/chestray-multilabel-analysis.ipynb)\
+Takes few seconds to load due to images. Grad-CAM maps are included for visualization.
+
 ## Setting up the project
 ### Data
 * Create data/ folder
